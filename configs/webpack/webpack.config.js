@@ -13,7 +13,7 @@ const root = path.resolve(__dirname, '../../'),
 module.exports = (env, argv) => ({
   mode,
   target: 'web',
-  entry: [`${root}/src/index.tsx`].filter(Boolean),
+  entry: `${root}/src/index.tsx`,
 
   output: {
     filename: `${assetsPath}/js/[name]${isProd ? '.[chunkhash]' : ''}.js`,
@@ -74,6 +74,7 @@ module.exports = (env, argv) => ({
       hash: isProd,
     }),
     new (require('mini-css-extract-plugin'))(),
+    new webpack.WatchIgnorePlugin([/css\.d\.ts$/]),
 
     isDev && new (require('@pmmmwh/react-refresh-webpack-plugin'))(),
     isProd &&
@@ -96,7 +97,6 @@ module.exports = (env, argv) => ({
           ...require(`${root}/configs/babelrc.js`),
         },
       },
-
       {
         test: /\.scss$/,
         use: [
@@ -106,14 +106,15 @@ module.exports = (env, argv) => ({
               hmr: isDev,
             },
           },
-          {
-            loader: '@teamsupercell/typings-for-css-modules-loader',
-            options: {
-            },
-          },
+          '@teamsupercell/typings-for-css-modules-loader',
           {
             loader: 'css-loader',
-            options: { modules: true },
+            options: {
+              modules: {
+                compileType: 'module',
+                localIdentName: '[local]-[hash:base64:4]',
+              },
+            },
           },
           {
             loader: 'postcss-loader',
