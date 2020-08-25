@@ -35,5 +35,19 @@ module.exports = {
   ],
   plugins: [
     isDev && require.resolve('react-refresh/babel'),
+    [
+      'react-css-modules',
+      {
+        webpackHotModuleReloading: isDev,
+        handleMissingStyleName: 'warn',
+        generateScopedName: '[local]-[hash:base64:4]',
+        filetypes: {
+          '.scss': {
+            syntax: require(`${root}/configs/stylization/postcss.config.js`).syntax,
+          },
+        },
+        exclude: 'node_modules',
+      },
+    ],
   ].filter(Boolean),
 }

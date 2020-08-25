@@ -39,8 +39,13 @@ module.exports = (env, argv) => ({
 
   resolve: {
     alias: {
+      '@types': `${root}/src/@types`,
       assets: `${root}/src/assets`,
+      components: `${root}/src/components`,
       consts: `${root}/src/consts`,
+      helpers: `${root}/src/helpers`,
+      modules: `${root}/src/modules`,
+      pages: `${root}/src/pages`,
     },
     extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.cjs', '.js', '.json'],
   },
@@ -69,12 +74,14 @@ module.exports = (env, argv) => ({
       hash: isProd,
     }),
     new (require('mini-css-extract-plugin'))(),
+
     isDev && new (require('@pmmmwh/react-refresh-webpack-plugin'))(),
     isProd &&
       new (require('workbox-webpack-plugin').GenerateSW)({
         clientsClaim: true,
         skipWaiting: true,
       }),
+    // isProd && new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
   ].filter(Boolean),
 
   module: {
@@ -99,7 +106,22 @@ module.exports = (env, argv) => ({
               hmr: isDev,
             },
           },
-          'css-loader',
+          {
+            loader: '@teamsupercell/typings-for-css-modules-loader',
+            options: {
+            },
+          },
+          {
+            loader: 'css-loader',
+            options: { modules: true },
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: { path: `${root}/configs/stylization/postcss.config.js` },
+              sourceMap: isDev && 'inline',
+            },
+          },
         ],
       },
       {
