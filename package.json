@@ -27,6 +27,7 @@
     }
   },
   "eslintConfig": {
+    "root": true,
     "extends": "./configs/linters/.eslintrc.js"
   },
   "stylelint": {
