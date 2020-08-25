@@ -1,0 +1,9 @@
+{
+  "name": "hooks-module",
+  "description": "Module with hooks",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "react-use": "15.3.3"
+  }
+}
