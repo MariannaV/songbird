@@ -1,0 +1,14 @@
+{
+  "name": "stylization-module",
+  "description": "Module for stylization",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "styled-components": "5.1.1",
+    "antd": "4.5.2"
+  },
+  "devDependencies": {
+    "@types/styled-components": "5.1.2",
+    "babel-plugin-styled-components": "1.11.1"
+  }
+}
