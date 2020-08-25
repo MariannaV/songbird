@@ -1,5 +1,5 @@
-// import 'css/vendors.css'
-import styles from './index.scss'
+import './styles/vendors'
+import './styles/index.scss'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import CONSTANTS from './consts'
@@ -18,8 +18,7 @@ if (CONSTANTS.isProd && 'serviceWorker' in navigator) {
 }
 
 function App() {
-  // @ts-ignore
-  return <h1 className={`${styles.myElement}`}>Hello, React World</h1>
+  return <h1>Hello, React World</h1>
 }
 
 ReactDOM.render(<App />, document.querySelector('#root'))

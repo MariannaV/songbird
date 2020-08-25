@@ -57,6 +57,8 @@ module.exports = {
     '@typescript-eslint/no-unsafe-assignment': 1,
     '@typescript-eslint/no-unsafe-return': 1,
     '@typescript-eslint/no-unsafe-call': 1,
+    '@typescript-eslint/no-empty-interface': 1,
+    '@typescript-eslint/react-a11y-anchors': 0,
 
     'one-var': 0,
     'spaced-comment': 0,

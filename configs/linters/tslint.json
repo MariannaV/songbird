@@ -49,7 +49,8 @@
     "jsdoc-format": false,
     "no-namespace": false,
     "no-useless-cast": false,
-    "no-single-line-block-comment": false
+    "no-single-line-block-comment": false,
+    "react-a11y-anchors": false
   },
   "rulesDirectory": ["tslint-plugin-prettier"],
   "linterOptions": {

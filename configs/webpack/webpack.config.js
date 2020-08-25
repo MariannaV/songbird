@@ -1,4 +1,5 @@
-const path = require('path')
+const webpack = require('webpack'),
+  path = require('path')
 
 const mode = process.env.NODE_ENV,
   isDev = mode === 'development',
@@ -123,6 +124,18 @@ module.exports = (env, argv) => ({
               sourceMap: isDev && 'inline',
             },
           },
+        ],
+      },
+      {
+        test: /\.css$/,
+        use: [
+          {
+            loader: require('mini-css-extract-plugin').loader,
+            options: {
+              hmr: isDev,
+            },
+          },
+          'css-loader',
         ],
       },
       {
