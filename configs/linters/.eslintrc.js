@@ -94,6 +94,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'import/no-extraneous-dependencies': 0, //because of Yarn Workspaces
     'unicorn/no-null': 0,
+    'unicorn/prefer-spread': 1,
   },
   settings: {
     'import/resolver': {
