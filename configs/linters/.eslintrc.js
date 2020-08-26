@@ -69,7 +69,7 @@ module.exports = {
     'no-shadow': 1,
     'no-return-await': 0,
     'prefer-template': 0,
-    'prefer-rest-params': 1,
+    'prefer-rest-params': 0,
     'global-require': 0,
 
     'react/prop-types': 0,

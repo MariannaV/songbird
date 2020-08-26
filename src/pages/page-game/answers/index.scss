@@ -1,0 +1,14 @@
+.answersSection {
+}
+
+.answer {
+  &[data-is-answered='true'] {
+    &:not([data-is-right-answer='true']) {
+      color: red;
+    }
+
+    &[data-is-right-answer='true'] {
+      color: greenyellow;
+    }
+  }
+}

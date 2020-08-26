@@ -2,6 +2,9 @@ import './styles/vendors'
 import './styles/index.scss'
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { LoadableComponent } from '@loadable/component'
+import { getModuleAsync } from './modules/optimizations'
+import { Header } from './components/header'
 import CONSTANTS from './consts'
 
 if (CONSTANTS.isProd && 'serviceWorker' in navigator) {
@@ -17,8 +20,20 @@ if (CONSTANTS.isProd && 'serviceWorker' in navigator) {
   })
 }
 
+//TODO: replace to routes
+const PageGame: LoadableComponent<unknown> = getModuleAsync({
+  moduleName: 'PageGame',
+  moduleImport: () => import(/* webpackChunkName: "PageGame", webpackPrefetch: true */ './pages/page-game'),
+})
+
+//TODO: connect to React-router and Redux store
 function App() {
-  return <h1>Hello, React World</h1>
+  return (
+    <>
+      <Header />
+      <PageGame />
+    </>
+  )
 }
 
 ReactDOM.render(<App />, document.querySelector('#root'))
