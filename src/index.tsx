@@ -2,9 +2,9 @@ import './styles/vendors'
 import './styles/index.scss'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import { LoadableComponent } from '@loadable/component'
-import { getModuleAsync } from './modules/optimizations'
-import { Header } from './components/header'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { routes } from './consts/routes'
+import { Header } from './components/header' //TODO: fix as absolute url
 import CONSTANTS from './consts'
 
 if (CONSTANTS.isProd && 'serviceWorker' in navigator) {
@@ -20,19 +20,25 @@ if (CONSTANTS.isProd && 'serviceWorker' in navigator) {
   })
 }
 
-//TODO: replace to routes
-const PageGame: LoadableComponent<unknown> = getModuleAsync({
-  moduleName: 'PageGame',
-  moduleImport: () => import(/* webpackChunkName: "PageGame", webpackPrefetch: true */ './pages/page-game'),
-})
-
-//TODO: connect to React-router and Redux store
 function App() {
+  const Routes = React.useMemo(
+    () =>
+      routes.map((route) => (
+        <Route
+          path={route.props.pathname}
+          component={route.props.Component}
+          exact={route.props.exact}
+          key={route.props.pathname}
+        />
+      )),
+    []
+  )
+
   return (
-    <>
+    <Router>
       <Header />
-      <PageGame />
-    </>
+      <Switch children={Routes} />
+    </Router>
   )
 }
 

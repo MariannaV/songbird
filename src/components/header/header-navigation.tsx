@@ -1,4 +1,6 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { routesMap, ROUTES } from '../../consts/routes'
 import styles from './index.scss'
 
 interface IHeaderMenuItem {
@@ -8,10 +10,7 @@ interface IHeaderMenuItem {
 
 export function HeaderNavigation() {
   const Menu = React.useMemo(
-    () =>
-      menu.map((menuItem) => (
-        <a href={menuItem.url} children={menuItem.title} role="button" key={`menuItem-${menuItem.url}`} />
-      )),
+    () => menu.map((menuItem) => <Link to={menuItem.url} children={menuItem.title} key={`menuItem-${menuItem.url}`} />),
     []
   )
   return <nav children={Menu} className={styles.headerNavigation} />
@@ -20,7 +19,7 @@ export function HeaderNavigation() {
 const menu: Array<IHeaderMenuItem> = [
   {
     title: 'Разминка',
-    url: '/',
+    url: routesMap.get(ROUTES.PageGame)!.props.pathname,
   },
   {
     title: 'Воробьиные',

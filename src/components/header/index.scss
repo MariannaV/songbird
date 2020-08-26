@@ -3,6 +3,10 @@
 
 .headerLogo {
   grid-area: header-logo;
+  display: inline-block;
+  width: 50px;
+  height: 50px;
+  background-color: greenyellow;
 }
 
 .userStatistics {

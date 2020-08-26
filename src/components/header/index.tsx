@@ -1,11 +1,13 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+import { routesMap, ROUTES } from '../../consts/routes'
 import styles from './index.scss'
 import { HeaderNavigation } from './header-navigation'
 
 export function Header(): React.ReactElement {
   return (
     <header className={styles.header}>
-      <a href="/" role="button" className={styles.headerLogo} />
+      <Link to={routesMap.get(ROUTES.PageGame)!.props.pathname} className={styles.headerLogo} />
       <UserStatistics />
       <HeaderNavigation />
     </header>
