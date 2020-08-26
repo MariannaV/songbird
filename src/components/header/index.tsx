@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { routesMap, ROUTES } from '../../consts/routes'
+import { birdGameSelectors } from '../../store/birdGame/selectors'
 import styles from './index.scss'
 import { HeaderNavigation } from './header-navigation'
 
@@ -15,6 +17,6 @@ export function Header(): React.ReactElement {
 }
 
 const UserStatistics = () => {
-  const score = 0 //TODO: from store
+  const score = useSelector(birdGameSelectors.getGameScore)
   return <div children={`Score: ${score}`} className={styles.userStatistics} />
 }

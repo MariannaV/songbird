@@ -3,7 +3,9 @@ import './styles/index.scss'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Provider } from 'react-redux'
 import { routes } from './consts/routes'
+import { configureStore } from './store'
 import { Header } from './components/header' //TODO: fix as absolute url
 import CONSTANTS from './consts'
 
@@ -19,6 +21,8 @@ if (CONSTANTS.isProd && 'serviceWorker' in navigator) {
       })
   })
 }
+
+const store = configureStore()
 
 function App() {
   const Routes = React.useMemo(
@@ -36,8 +40,10 @@ function App() {
 
   return (
     <Router>
-      <Header />
-      <Switch children={Routes} />
+      <Provider store={store}>
+        <Header />
+        <Switch children={Routes} />
+      </Provider>
     </Router>
   )
 }
