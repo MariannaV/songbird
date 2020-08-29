@@ -6,11 +6,15 @@ import styles from './index.scss'
 interface IHeaderMenuItem {
   title: React.ReactNode
   url: string
+  disabled?: boolean
 }
 
 export function HeaderNavigation() {
   const Menu = React.useMemo(
-    () => menu.map((menuItem) => <Link to={menuItem.url} children={menuItem.title} key={`menuItem-${menuItem.url}`} />),
+    () =>
+      menu.map(({ url, title, ...restMenuItem }) => (
+        <Link to={url} children={title} {...restMenuItem} className={styles.headerNavigationLink} key={`menuItem-${title}`} />
+      )),
     []
   )
   return <nav children={Menu} className={styles.headerNavigation} />
@@ -24,21 +28,26 @@ const menu: Array<IHeaderMenuItem> = [
   {
     title: 'Воробьиные',
     url: '/1',
+    disabled: true,
   },
   {
     title: 'Лесные птицы',
     url: '/2',
+    disabled: true,
   },
   {
     title: 'Певчие птицы',
     url: '/3',
+    disabled: true,
   },
   {
     title: 'Хищные птицы',
     url: '/4',
+    disabled: true,
   },
   {
     title: 'Морские птицы',
     url: '/5',
+    disabled: true,
   },
 ]
