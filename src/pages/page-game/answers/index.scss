@@ -1,14 +1,60 @@
+@import './../../../styles/variables.scss';
+
 .answersSection {
+  display: flex;
+  flex-direction: column;
 }
 
 .answer {
+  font-size: 20px;
+  height: initial;
+  color: $colorWhite;
+  background-color: #303030f0;
+  border: 1px solid #555;
+  text-align: left;
+  padding: 8px 8px 8px 50px;
+
   &[data-is-answered='true'] {
-    &:not([data-is-right-answer='true']) {
-      color: red;
+    &:not([data-is-right-answer='true'])::before {
+      background-color: red;
     }
 
-    &[data-is-right-answer='true'] {
-      color: greenyellow;
+    &[data-is-right-answer='true']::before {
+      background-color: $colorGreen;
     }
+  }
+
+  &:first-child {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+
+  &:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $colorWhite;
+    background-color: rgb(73, 70, 70);
+    border: 1px solid #555;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 25px;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    z-index: 5;
+    background-color: transparent;
+    display: block;
+    transform: translate(-50%, -50%);
+    border: 1px solid;
+    border-radius: 50%;
+    opacity: 0.9;
   }
 }
