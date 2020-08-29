@@ -47,6 +47,7 @@ module.exports = (env, argv) => ({
       helpers: `${root}/src/helpers`,
       modules: `${root}/src/modules`,
       pages: `${root}/src/pages`,
+      'core-js': path.dirname(require.resolve(`core-js/package.json`)),
     },
     extensions: ['.wasm', '.ts', '.tsx', '.mjs', '.cjs', '.js', '.json'],
   },

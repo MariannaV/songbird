@@ -1,0 +1,32 @@
+@import './../../../styles/variables.scss';
+
+.informationSection {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #303030f0;
+  color: $colorWhite;
+  border: 1px solid #555;
+  border-radius: 5px;
+}
+
+.isEmptySection {
+}
+
+.birdName {
+  font-size: 2rem;
+  color: inherit;
+}
+
+.birdClass {
+  color: inherit;
+}
+
+.birdDescription {
+}
+
+.birdPicture {
+}
+
+.birdPlayer {
+}

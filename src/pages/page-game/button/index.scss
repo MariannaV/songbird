@@ -1,0 +1,18 @@
+@import './../../../styles/variables.scss';
+
+.button[class~='ant-btn'] {
+  width: 100%;
+  padding: 8px;
+  background-color: $colorGreen;
+  border: initial;
+  border-radius: 5px;
+  color: $colorWhite;
+  grid-column: 1 / -1;
+  align-self: center;
+  height: initial;
+  transition: filter 0.3s;
+
+  &:hover {
+    filter: brightness(1.2);
+  }
+}

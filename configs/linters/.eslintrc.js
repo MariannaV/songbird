@@ -59,6 +59,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-call': 1,
     '@typescript-eslint/no-empty-interface': 1,
     '@typescript-eslint/react-a11y-anchors': 0,
+    '@typescript-eslint/no-namespace': 0,
 
     'one-var': 0,
     'spaced-comment': 0,
@@ -69,7 +70,7 @@ module.exports = {
     'no-shadow': 1,
     'no-return-await': 0,
     'prefer-template': 0,
-    'prefer-rest-params': 1,
+    'prefer-rest-params': 0,
     'global-require': 0,
 
     'react/prop-types': 0,
@@ -94,6 +95,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'import/no-extraneous-dependencies': 0, //because of Yarn Workspaces
     'unicorn/no-null': 0,
+    'unicorn/prefer-spread': 1,
   },
   settings: {
     'import/resolver': {

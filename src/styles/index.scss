@@ -1,0 +1,27 @@
+@import './variables.scss';
+
+body::before {
+  content: '';
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background-image: url('assets/background-application.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#root {
+  display: grid;
+  grid-template-rows: max-content 1fr;
+  height: 100%;
+  padding: 40px;
+}
+
+.wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}

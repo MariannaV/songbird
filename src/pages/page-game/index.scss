@@ -1,0 +1,16 @@
+@import '../../styles/variables.scss';
+
+.pageContent {
+  display: grid;
+  grid-auto-rows: max-content 1fr;
+  grid-gap: 20px;
+  row-gap: 5vh;
+
+  @media (--max-tablet) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (--min-tablet) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
