@@ -12,8 +12,8 @@
   @media (--min-tablet) {
     display: grid;
     grid-template-areas:
-        "header-logo . user-statistics"
-        "header-navigation header-navigation header-navigation";
+      'header-logo . user-statistics'
+      'header-navigation header-navigation header-navigation';
     row-gap: 20px;
   }
 }

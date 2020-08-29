@@ -13,7 +13,13 @@ export function HeaderNavigation() {
   const Menu = React.useMemo(
     () =>
       menu.map(({ url, title, ...restMenuItem }) => (
-        <Link to={url} children={title} {...restMenuItem} className={styles.headerNavigationLink} key={`menuItem-${title}`} />
+        <Link
+          to={url}
+          children={title}
+          {...restMenuItem}
+          className={styles.headerNavigationLink}
+          key={`menuItem-${title}`}
+        />
       )),
     []
   )
