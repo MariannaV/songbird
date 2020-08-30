@@ -386,7 +386,8 @@ button {
 
 a:focus,
 button:focus,
-summary:focus {
+summary:focus,
+audio:focus {
   outline: none;
 }
 
