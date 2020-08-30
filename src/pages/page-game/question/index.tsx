@@ -11,6 +11,10 @@ export function QuestionSection(): React.ReactElement {
     birdData = useSelector(birdsSelectors.getBird({ birdId })),
     questionIsAnswered = useSelector(birdGameSelectors.getGameQuestionSsAnswered)
 
+  React.useEffect(() => {
+    console.info(`Next right answer is ${birdData.title}`)
+  }, [birdData.title])
+
   const classes = React.useMemo(
     () =>
       [questionStyles.questionSection, questionIsAnswered && questionStyles.questionIsAnswered]
