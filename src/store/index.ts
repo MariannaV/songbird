@@ -5,9 +5,12 @@ import { get } from 'lodash-es'
 import CONSTANTS from '../consts'
 import { NBirdGame } from './birdGame/@types'
 import { birdGameReducer } from './birdGame/reducer'
+import { NBirds } from './birds/@types'
+import { birdsReducer } from './birds/reducer'
 
 export interface IStore {
   birdGame: NBirdGame.IStore
+  birds: NBirds.IStore
 }
 
 export function configureStore(preloadedState?: any) {
@@ -22,6 +25,7 @@ export function configureStore(preloadedState?: any) {
   return createStore(
     combineReducers({
       birdGame: birdGameReducer,
+      birds: birdsReducer,
     }),
     preloadedState,
     enhancer
