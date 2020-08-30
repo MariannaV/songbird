@@ -1,7 +1,6 @@
 import { Dispatch } from 'redux'
 import { NBirds } from './@types'
 import { requestCreator } from '../../helpers/request-creator'
-import CONSTANTS from '../../consts'
 
 export const API_Birds = {
   //TODO: need to check 'offset' for this request
@@ -101,16 +100,9 @@ export const API_Birds = {
       query = [birdClass, 'q:A'].join('+'),
       url = `${apiSettings.version}/recordings?query=${query}`,
       result = await requestCreator<{ recordings: Array<NBirds.IBirdAudio> }>({
-        //due to CORS
-        ...(CONSTANTS.isDev
-          ? {
-              host: 'https://jsonp.afeld.me',
-              url: `?url=${apiSettings.host}/${url}`,
-            }
-          : {
-              host: apiSettings.host,
-              url,
-            }),
+        //due to CORS need to use external proxy
+        host: 'https://jsonp.afeld.me',
+        url: `?url=${apiSettings.host}/${url}`,
         method: requestCreator.methods.get,
       })
     return result.recordings[0]
