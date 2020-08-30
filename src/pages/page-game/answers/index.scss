@@ -15,7 +15,7 @@
   background-color: #303030f0;
   border: 1px solid #555;
   text-align: left;
-  padding: 8px 8px 8px 50px;
+  padding: 13px 8px 13px 50px;
 
   &:first-child {
     border-top-left-radius: 5px;
@@ -35,7 +35,7 @@
     border: 1px solid #555;
   }
 
-  &:before {
+  &::before {
     content: '';
     position: absolute;
     left: 25px;
@@ -49,6 +49,10 @@
     border: 1px solid;
     border-radius: 50%;
     opacity: 0.9;
+  }
+
+  & > span {
+    white-space: initial;
   }
 }
 

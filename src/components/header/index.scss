@@ -68,20 +68,25 @@
     color: $colorWhite;
     background-color: #303030f0;
 
+    @media (--max-tablet) {
+      border-radius: 5px;
+    }
+
     &[class~='active'] {
       background-color: $colorGreen;
     }
 
     &:not([class~='active']) {
       pointer-events: none;
+
+      @media (--max-tablet) {
+        display: none;
+      }
     }
 
     &:first-child {
       border-top-left-radius: 5px;
 
-      @media (--max-tablet) {
-        border-top-right-radius: 5px;
-      }
       @media (--min-tablet) {
         border-bottom-left-radius: 5px;
       }
@@ -89,9 +94,7 @@
 
     &:last-child {
       border-bottom-right-radius: 5px;
-      @media (--max-tablet) {
-        border-bottom-left-radius: 5px;
-      }
+
       @media (--min-tablet) {
         border-top-right-radius: 5px;
       }

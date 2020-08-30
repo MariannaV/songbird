@@ -1,17 +1,21 @@
 @import '../../../styles/variables.scss';
 
 .questionSection {
-  display: grid;
-  grid-gap: 16px;
   padding: var(--horizontalSpacing);
   background-color: #303030f0;
   color: $colorWhite;
   border: 1px solid #555;
   border-radius: 5px;
 
+  @media (--max-tablet) {
+    justify-content: center;
+  }
+
   @media (--min-tablet) {
+    display: grid;
     grid-column: 1 /-1;
     grid-template-columns: max-content 1fr;
+    grid-gap: 16px;
   }
 
   &.questionIsAnswered {
@@ -23,15 +27,27 @@
   display: flex;
   height: 150px;
   width: 200px;
-  border-radius: 10px;
+
+  @media (--max-tablet) {
+    margin: 0 auto 20px auto;
+  }
 
   & > img {
+    border-radius: 10px;
     object-position: top;
+    object-fit: cover;
+    width: 100%;
   }
 }
 
 .birdDescription {
   grid-column: 2 / -1;
+
+  @media (--max-tablet) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .birdName[class~='ant-typography'] {
