@@ -1,11 +1,13 @@
 import React from 'react'
 import { Spin } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { LoadableComponent } from '@loadable/component'
 import { getModuleAsync } from '../../modules/optimizations'
 
 import { API_Birds } from '../../store/birds/actions'
 import { birdsSelectors } from '../../store/birds/selectors'
+import { birdGameSelectors } from '../../store/birdGame/selectors'
 
 import commonStyles from '../../styles/index.scss'
 import pageStyles from './index.scss'
@@ -30,11 +32,13 @@ const AnswersSection: LoadableComponent<unknown> = getModuleAsync({
 //TODO: add error boundaries
 export function PageGame(): React.ReactElement {
   const dispatch = useDispatch(),
-    isLoading = useSelector(birdsSelectors.getBirdsLoading)
+    { regionCode = 'RU' } = useParams(),
+    isLoading = useSelector(birdsSelectors.getBirdsLoading),
+    questionsForRound = useSelector(birdGameSelectors.getGameQuestionsForRound)
 
   React.useEffect(() => {
-    dispatch(API_Birds.birdsListFetch({ regionCode: 'RU', limit: 12 /* 6 */ }))
-  }, [])
+    dispatch(API_Birds.birdsListFetch({ regionCode, limit: 2 * questionsForRound }))
+  }, [regionCode, questionsForRound])
 
   return (
     <main className={[commonStyles.wrapper, pageStyles.pageContent].join(' ')}>

@@ -14,6 +14,9 @@ export const birdGameSelectors = {
   get getGameQuestionNumber() {
     return createSelector(this.getBirdGame, (birdGame) => birdGame.questionNumber)
   },
+  get getGameQuestionsForRound() {
+    return createSelector(this.getBirdGame, (birdGame) => birdGame.questionsForRound)
+  },
   get getGameRightAnswerIndex() {
     return createSelector(this.getBirdGame, (birdGame) => birdGame.answerIndex)
   },

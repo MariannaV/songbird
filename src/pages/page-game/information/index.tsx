@@ -9,7 +9,11 @@ export function InformationSection(): React.ReactElement {
   const birdId = useSelector(birdGameSelectors.getGameOpenedId),
     Information = React.useMemo(
       () =>
-        !birdId ? <p children="Послушайте плеер. Выберите птицу из списка" /> : <BirdInformation birdId={birdId} />,
+        !birdId ? (
+          <p children="Listen to the audio player and choose a bird from answers list" />
+        ) : (
+          <BirdInformation birdId={birdId} />
+        ),
       [birdId]
     ),
     sectionClassNames = React.useMemo(
