@@ -32,7 +32,7 @@ export function PageGame(): React.ReactElement {
         <Spin size="large" className={pageStyles.spinner} />
       ) : (
         <>
-          <section>Question</section>
+          {/*<section>Question</section>*/}
           <AnswersSection />
           <InformationSection />
           <ButtonNextLevel />

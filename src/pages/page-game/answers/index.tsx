@@ -33,7 +33,8 @@ interface IAnswer {
 
 function Answer(properties: IAnswer) {
   const { answerId, isRightAnswer } = properties,
-    [isAnswered, setAsAnswered] = React.useState<boolean>(),
+    questionIsAnswered = useSelector(birdGameSelectors.getGameQuestionSsAnswered),
+    [isAnswered, setAsAnswered] = React.useState<boolean>(false),
     answerData = useSelector(birdsSelectors.getBird({ birdId: answerId })),
     classes = React.useMemo(
       () =>
@@ -46,9 +47,18 @@ function Answer(properties: IAnswer) {
   const dispatch = useDispatch(),
     onClick = React.useCallback(() => {
       dispatch(API_BirdGame.birdInformationOpen({ openedId: answerId }))
-      dispatch(API_BirdGame.questionAnswer({ isRightAnswer }))
-      setAsAnswered(true)
-    }, [answerId, isRightAnswer])
+      if (!questionIsAnswered) {
+        dispatch(API_BirdGame.questionAnswer({ isRightAnswer }))
+        setAsAnswered(true)
+      }
+    }, [answerId, isRightAnswer, questionIsAnswered, dispatch])
 
-  return <Button children={answerData.title} disabled={isAnswered} onClick={onClick} className={classes} />
+  return (
+    <Button
+      children={answerData.title}
+      disabled={isAnswered && !questionIsAnswered}
+      onClick={onClick}
+      className={classes}
+    />
+  )
 }
