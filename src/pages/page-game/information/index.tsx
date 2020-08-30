@@ -23,7 +23,7 @@ export function InformationSection(): React.ReactElement {
 
 function BirdInformation(properties: { birdId: NBirds.IBird['birdId'] }) {
   const { birdId } = properties,
-    { extract, nameByScience, ...birdData } = useSelector(birdsSelectors.getBird({ birdId }))
+    birdData = useSelector(birdsSelectors.getBird({ birdId }))
 
   const renderedPicture = React.useMemo(() => {
     if (!birdData.thumbnail?.source && !birdData.originalimage?.source) return null
@@ -40,9 +40,9 @@ function BirdInformation(properties: { birdId: NBirds.IBird['birdId'] }) {
     <>
       {renderedPicture}
       <h3 children={birdData.title} className={informationStyles.birdName} />
-      <h6 children={nameByScience || 'No science name'} className={informationStyles.birdClass} />
+      <h6 children={birdData.nameByScience || 'No science name'} className={informationStyles.birdClass} />
       {/*<audio className={informationStyles.birdPlayer} />*/}
-      <p children={extract || 'No description'} className={informationStyles.birdDescription} />
+      <p children={birdData.extract || 'No description'} className={informationStyles.birdDescription} />
     </>
   )
 }
