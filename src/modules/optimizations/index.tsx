@@ -29,7 +29,7 @@ export function getModuleAsync({
         return !Component ? (
           <Button children="Something went wrong... click to reload" onClick={onClick} />
         ) : (
-            // @ts-ignore
+          // @ts-ignore
           <Component />
         )
       })

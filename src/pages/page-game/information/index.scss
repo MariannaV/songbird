@@ -26,6 +26,13 @@
 }
 
 .birdPicture {
+  height: 155px;
+  width: 200px;
+  & > img {
+    border-radius: 10px;
+    width: 100%;
+    object-position: top;
+  }
 }
 
 .birdPlayer {

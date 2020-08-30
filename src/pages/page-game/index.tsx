@@ -1,7 +1,6 @@
 import React from 'react'
 import { Spin } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
 import { LoadableComponent } from '@loadable/component'
 import { getModuleAsync } from '../../modules/optimizations'
 
@@ -26,32 +25,43 @@ const AnswersSection: LoadableComponent<unknown> = getModuleAsync({
   }),
   ButtonNextLevel: LoadableComponent<unknown> = getModuleAsync({
     moduleName: 'ButtonNextLevel',
-    moduleImport: () => import(/* webpackChunkName: "InformationSection", webpackPrefetch: true */ './button'),
+    moduleImport: () => import(/* webpackChunkName: "ButtonNextLevel", webpackPrefetch: true */ './button'),
+  }),
+  ResultScreen: LoadableComponent<unknown> = getModuleAsync({
+    moduleName: 'ResultScreen',
+    moduleImport: () => import(/* webpackChunkName: "ResultScreen", webpackPrefetch: true */ './results'),
   })
 
 //TODO: add error boundaries
 export function PageGame(): React.ReactElement {
   const dispatch = useDispatch(),
-    { regionCode = 'RU' } = useParams(),
     isLoading = useSelector(birdsSelectors.getBirdsLoading),
-    questionsForRound = useSelector(birdGameSelectors.getGameQuestionsForRound)
+    questionsForRound = useSelector(birdGameSelectors.getGameQuestionsForRound),
+    gameIsOver = useSelector(birdGameSelectors.getGameIsOver)
 
   React.useEffect(() => {
-    dispatch(API_Birds.birdsListFetch({ regionCode, limit: questionsForRound }))
-  }, [regionCode, questionsForRound])
+    dispatch(API_Birds.birdsListFetch({ regionCode: 'RU', limit: questionsForRound }))
+  }, [])
 
-  return (
-    <main className={[commonStyles.wrapper, pageStyles.pageContent].join(' ')}>
-      {isLoading ? (
-        <Spin size="large" className={pageStyles.spinner} />
-      ) : (
+  const classes = React.useMemo(
+      () =>
+        [commonStyles.wrapper, pageStyles.pageContent, gameIsOver && pageStyles.resultsScreen]
+          .filter(Boolean)
+          .join(' '),
+      [gameIsOver]
+    ),
+    pageContent = React.useMemo(() => {
+      if (gameIsOver) return <ResultScreen />
+      if (isLoading) return <Spin size="large" className={pageStyles.spinner} />
+      return (
         <>
           <QuestionSection />
           <AnswersSection />
           <InformationSection />
           <ButtonNextLevel />
         </>
-      )}
-    </main>
-  )
+      )
+    }, [isLoading, gameIsOver])
+
+  return <main children={pageContent} className={classes} />
 }

@@ -1,5 +1,6 @@
 import produce from 'immer'
 import { NBirdGame } from './@types'
+import { headerMenu } from '../../components/header/header-navigation'
 
 function getInitialState(): NBirdGame.IStore {
   const questionsForRound = 6
@@ -11,11 +12,11 @@ function getInitialState(): NBirdGame.IStore {
     answerIndex: getRandomInt(questionsForRound),
     attemptsMade: 0,
     openedId: null,
+    gameOver: false,
   }
 }
 
 export const birdGameReducer = produce((draft: NBirdGame.IStore, action: NBirdGame.IActions) => {
-  // eslint-disable-next-line @typescript-eslint/tslint/config,sonarjs/no-small-switch
   switch (action.type) {
     case NBirdGame.ActionTypes.BIRD_INFORMATION_OPEN: {
       draft.openedId = action.payload.openedId
@@ -30,16 +31,28 @@ export const birdGameReducer = produce((draft: NBirdGame.IStore, action: NBirdGa
       }
       if (draft.questionsForRound > draft.attemptsMade) draft.score += draft.questionsForRound - draft.attemptsMade
       draft.isAnswered = true
-
       break
     }
 
     case NBirdGame.ActionTypes.QUESTION_ASK: {
-      draft.questionNumber += 1
-      draft.answerIndex = getRandomInt(draft.questionsForRound)
-      draft.attemptsMade = 0
-      draft.openedId = null
-      draft.isAnswered = false
+      if (draft.questionNumber + 1 < headerMenu.length) {
+        draft.questionNumber += 1
+        draft.answerIndex = getRandomInt(draft.questionsForRound)
+        draft.attemptsMade = 0
+        draft.openedId = null
+        draft.isAnswered = false
+      } else {
+        draft.gameOver = true
+      }
+      break
+    }
+
+    case NBirdGame.ActionTypes.GAME_RESTART: {
+      const newStore = getInitialState()
+      Object.entries(newStore).forEach(([key, value]) => {
+        // @ts-ignore
+        draft[key] = value
+      })
       break
     }
 

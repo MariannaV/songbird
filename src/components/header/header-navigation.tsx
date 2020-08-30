@@ -6,6 +6,7 @@ import styles from './index.scss'
 interface IHeaderMenuItem {
   title: React.ReactNode
   url: string
+  routeParams: Record<string, any>
 }
 
 export function HeaderNavigation() {
@@ -22,26 +23,44 @@ export function HeaderNavigation() {
 export const headerMenu: Array<IHeaderMenuItem> = [
   {
     title: 'Train',
-    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname),
+    get url() {
+      return generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, this.routeParams)
+    },
+    routeParams: {},
   },
   {
     title: 'Australian',
-    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, { regionCode: 'AU' }),
+    get url() {
+      return generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, this.routeParams)
+    },
+    routeParams: { regionCode: 'AU' },
   },
   {
     title: 'British',
-    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, { regionCode: 'GB' }),
+    get url() {
+      return generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, this.routeParams)
+    },
+    routeParams: { regionCode: 'GB' },
   },
   {
     title: 'Brazilian',
-    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, { regionCode: 'BR' }),
+    get url() {
+      return generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, this.routeParams)
+    },
+    routeParams: { regionCode: 'BR' },
   },
   {
     title: 'African',
-    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, { regionCode: 'ZA' }),
+    get url() {
+      return generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, this.routeParams)
+    },
+    routeParams: { regionCode: 'ZA' },
   },
   {
     title: 'Japanese',
-    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, { regionCode: 'JP' }),
+    get url() {
+      return generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, this.routeParams)
+    },
+    routeParams: { regionCode: 'JP' },
   },
 ]

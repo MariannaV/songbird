@@ -9,14 +9,16 @@ export namespace NBirdGame {
     isAnswered: boolean
     openedId: null | NBirds.IBird['birdId']
     attemptsMade: number
+    gameOver: boolean
   }
 
-  export type IActions = IBirdInformationOpen | IQuestionAnswer | IQuestionAsk
+  export type IActions = IBirdInformationOpen | IQuestionAnswer | IQuestionAsk | IGameRestart
 
   export enum ActionTypes {
     BIRD_INFORMATION_OPEN = 'BIRD_INFORMATION_OPEN',
     QUESTION_ANSWER = 'QUESTION_ANSWER',
     QUESTION_ASK = 'QUESTION_ASK',
+    GAME_RESTART = 'GAME_RESTART',
   }
 
   export type IBirdInformationOpen = {
@@ -35,5 +37,9 @@ export namespace NBirdGame {
 
   export type IQuestionAsk = {
     type: ActionTypes.QUESTION_ASK
+  }
+
+  export type IGameRestart = {
+    type: ActionTypes.GAME_RESTART
   }
 }

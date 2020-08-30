@@ -26,6 +26,9 @@ export const birdGameSelectors = {
   get getGameQuestionSsAnswered() {
     return createSelector(this.getBirdGame, (birdGame) => birdGame.isAnswered)
   },
+  get getGameIsOver() {
+    return createSelector(this.getBirdGame, (birdGame) => birdGame.gameOver)
+  },
   get getGameVariantsOfAnswer() {
     return createSelector(
       (store: IStore) => store,

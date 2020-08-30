@@ -100,6 +100,7 @@ module.exports = {
     'unicorn/no-reduce': 0,
     'unicorn/prefer-spread': 0,
     'unicorn/no-for-loop': 0,
+    'unicorn/consistent-function-scoping': 0,
   },
   settings: {
     'import/resolver': {

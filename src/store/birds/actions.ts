@@ -1,10 +1,12 @@
-import { Dispatch } from 'redux'
-import { NBirds } from './@types'
+import { Dispatch, Store } from 'redux'
 import { requestCreator } from '../../helpers/request-creator'
+import { IStore } from '../../store'
+import { NBirds } from './@types'
 
 export const API_Birds = {
   birdsListFetch: (parameters: { regionCode: string; limit?: number }) => async (
-    dispatch: Dispatch<NBirds.IBirdsFetch>
+    dispatch: Dispatch<NBirds.IBirdsFetch>,
+    getStore: Store<IStore>['getState']
   ) => {
     try {
       dispatch({ type: NBirds.ActionTypes.BIRDS_FETCH_START })
@@ -35,8 +37,10 @@ export const API_Birds = {
           .map(({ comName }) => {
             const birdClass = comName.replace(/\s/g, '_')
             return [
-              API_Birds.birdByClassGet({ birdClass: birdClass.replace(/\s/g, '_').toLocaleLowerCase() }),
-              API_Birds.birdAudioByClassGet({ birdClass }),
+              API_Birds.birdByClassGet({ birdClass: birdClass.replace(/\s/g, '_').toLocaleLowerCase() }).catch(
+                (error) => error
+              ),
+              API_Birds.birdAudioByClassGet({ birdClass }).catch((error) => error),
             ]
           })
           .flat()
