@@ -1,6 +1,7 @@
 import React from 'react'
 import { Spin } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
+import { useParams, useHistory } from 'react-router-dom'
 import { LoadableComponent } from '@loadable/component'
 import { getModuleAsync } from '../../modules/optimizations'
 
@@ -10,6 +11,7 @@ import { birdGameSelectors } from '../../store/birdGame/selectors'
 
 import commonStyles from '../../styles/index.scss'
 import pageStyles from './index.scss'
+import { headerMenu } from '../../components/header/header-navigation'
 
 const AnswersSection: LoadableComponent<unknown> = getModuleAsync({
     moduleName: 'AnswersSection',
@@ -39,7 +41,15 @@ export function PageGame(): React.ReactElement {
     questionsForRound = useSelector(birdGameSelectors.getGameQuestionsForRound),
     gameIsOver = useSelector(birdGameSelectors.getGameIsOver)
 
-  React.useEffect(() => {
+  const history = useHistory(),
+    routeParameters = useParams<{ regionCode: string }>()
+
+  React.useEffect(function restartGameAfterReloading() {
+    const isStartFromTrainLevel = !routeParameters.regionCode
+    if (!isStartFromTrainLevel) history.push(headerMenu[0].url)
+  }, [])
+
+  React.useEffect(function fethInitialData() {
     dispatch(API_Birds.birdsListFetch({ regionCode: 'RU', limit: questionsForRound }))
   }, [])
 

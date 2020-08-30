@@ -51,7 +51,9 @@
     "no-useless-cast": false,
     "no-single-line-block-comment": false,
     "react-a11y-anchors": false,
-    "use-simple-attributes": false
+    "use-simple-attributes": false,
+    "no-function-expression": false,
+    "ter-prefer-arrow-callback": false
   },
   "rulesDirectory": ["tslint-plugin-prettier"],
   "linterOptions": {
