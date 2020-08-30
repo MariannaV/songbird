@@ -14,13 +14,16 @@ body::before {
 }
 
 [id='root'] {
-  display: grid;
-  grid-template-rows: max-content 1fr;
   height: 100%;
+  @media (--min-tablet) {
+    display: grid;
+    grid-template-rows: max-content 1fr;
+  }
 }
 
 .wrapper {
   --horizontalSpacing: 20px;
+
   max-width: 1200px;
   margin: 0 auto;
   padding: var(--horizontalSpacing);

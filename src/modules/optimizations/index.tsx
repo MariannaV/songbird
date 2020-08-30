@@ -26,10 +26,10 @@ export function getModuleAsync({
           // @ts-ignore
           onClick = React.useCallback(() => setComponent(getModuleAsync(arguments[0])), [])
 
-        // @ts-ignore
         return !Component ? (
           <Button children="Something went wrong... click to reload" onClick={onClick} />
         ) : (
+            // @ts-ignore
           <Component />
         )
       })
