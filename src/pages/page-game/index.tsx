@@ -29,7 +29,7 @@ export function PageGame(): React.ReactElement {
   return (
     <main>
       {isLoading ? (
-        <Spin />
+        <Spin size="large" className={pageStyles.spinner} />
       ) : (
         <>
           <section>Question</section>

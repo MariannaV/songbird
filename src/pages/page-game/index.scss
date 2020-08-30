@@ -5,12 +5,21 @@
   grid-auto-rows: max-content 1fr;
   grid-gap: 20px;
   row-gap: 5vh;
+  position: relative;
+  width: 100%;
 
   @media (--max-tablet) {
-    grid-template-columns: 1fr;
+    grid-auto-columns: 100%;
   }
 
   @media (--min-tablet) {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+.spinner {
+  position: absolute;
+  left: calc(50% - var(--horizontalSpacing));
+  top: calc(50% - var(--horizontalSpacing));
+  transform: translate(-50%, -50%);
 }
