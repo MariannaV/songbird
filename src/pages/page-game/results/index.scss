@@ -1,0 +1,33 @@
+@import './../../../styles/variables.scss';
+
+.resultsSection {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  height: 450px;
+  padding: var(--horizontalSpacing);
+  background-color: white;
+  color: #303030f0;
+  border: 1px solid #555;
+  border-radius: 5px;
+}
+
+.description {
+  display: grid;
+  justify-content: center;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.title {
+}
+
+.button {
+  font-size: 20px;
+  padding: 9px 15px;
+  width: 100%;
+  height: auto;
+  text-align: center;
+  color: $colorWhite;
+  background-color: $colorGreen;
+}

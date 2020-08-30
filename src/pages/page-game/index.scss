@@ -1,0 +1,30 @@
+@import '../../styles/variables.scss';
+
+.pageContent {
+  display: grid;
+  grid-gap: 20px;
+  row-gap: 5vh;
+  align-items: flex-start;
+  position: relative;
+  width: 100%;
+
+  @media (--max-tablet) {
+    grid-auto-columns: 100%;
+  }
+
+  @media (--min-tablet) {
+    grid-auto-rows: max-content 1fr;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &.resultsScreen {
+    grid-auto-rows: auto;
+  }
+}
+
+.spinner {
+  position: absolute;
+  left: calc(50% - var(--horizontalSpacing));
+  top: calc(50% - var(--horizontalSpacing));
+  transform: translate(-50%, -50%);
+}

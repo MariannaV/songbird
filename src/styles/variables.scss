@@ -1,0 +1,7 @@
+$colorWhite: rgba(251, 251, 251, 1);
+$colorGreen: rgb(59, 155, 117, 1);
+
+$tablet: 768px;
+
+@custom-media --min-tablet (width >= $tablet);
+@custom-media --max-tablet (width < $tablet);

@@ -1,0 +1,73 @@
+@import './../../../styles/variables.scss';
+
+.informationSection {
+  padding: var(--horizontalSpacing);
+  background-color: #303030f0;
+  color: $colorWhite;
+  border: 1px solid #555;
+  border-radius: 5px;
+
+  @media (max-width: 1088px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media (min-width: 1089px) {
+    height: 354px;
+  }
+
+  &:not(.isEmptySection) {
+    @media (min-width: 1089px) {
+      display: grid;
+      grid-template-areas:
+        'bird-picture bird-name'
+        'bird-picture bird-class'
+        'bird-picture bird-player'
+        'bird-description bird-description';
+      grid-template-columns: max-content 1fr;
+      column-gap: 16px;
+      row-gap: 8px;
+    }
+  }
+}
+
+.birdName {
+  grid-area: bird-name;
+  font-size: 2rem;
+  color: inherit;
+}
+
+.birdClass {
+  grid-area: bird-class;
+  color: inherit;
+}
+
+.birdDescription {
+  grid-area: bird-description;
+  margin-top: 10px;
+
+  @media (min-width: 1088px) {
+    height: 140px;
+    overflow-y: auto;
+  }
+}
+
+.birdPicture {
+  grid-area: bird-picture;
+  display: flex;
+  height: 155px;
+  width: 200px;
+
+  & > img {
+    border-radius: 10px;
+    width: 100%;
+    object-position: top;
+  }
+}
+
+.birdPlayer {
+  grid-area: bird-player;
+  height: 60px !important;
+  width: 100% !important;
+}
