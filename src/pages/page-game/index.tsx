@@ -1,12 +1,17 @@
 import React from 'react'
-import { Button } from 'antd'
+import { Spin } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
+import { useParams } from 'react-router-dom'
 import { LoadableComponent } from '@loadable/component'
 import { getModuleAsync } from '../../modules/optimizations'
+
+import { API_Birds } from '../../store/birds/actions'
+import { birdsSelectors } from '../../store/birds/selectors'
+import { birdGameSelectors } from '../../store/birdGame/selectors'
+
 import commonStyles from '../../styles/index.scss'
 import pageStyles from './index.scss'
-import buttonStyles from './button/index.scss'
 
-//TODO: replace to routesMap
 const AnswersSection: LoadableComponent<unknown> = getModuleAsync({
     moduleName: 'AnswersSection',
     moduleImport: () => import(/* webpackChunkName: "AnswersSection", webpackPrefetch: true */ './answers'),
@@ -14,37 +19,39 @@ const AnswersSection: LoadableComponent<unknown> = getModuleAsync({
   InformationSection: LoadableComponent<unknown> = getModuleAsync({
     moduleName: 'InformationSection',
     moduleImport: () => import(/* webpackChunkName: "InformationSection", webpackPrefetch: true */ './information'),
+  }),
+  QuestionSection: LoadableComponent<unknown> = getModuleAsync({
+    moduleName: 'QuestionSection',
+    moduleImport: () => import(/* webpackChunkName: "QuestionSection", webpackPrefetch: true */ './question'),
+  }),
+  ButtonNextLevel: LoadableComponent<unknown> = getModuleAsync({
+    moduleName: 'ButtonNextLevel',
+    moduleImport: () => import(/* webpackChunkName: "InformationSection", webpackPrefetch: true */ './button'),
   })
 
 //TODO: add error boundaries
 export function PageGame(): React.ReactElement {
+  const dispatch = useDispatch(),
+    { regionCode = 'RU' } = useParams(),
+    isLoading = useSelector(birdsSelectors.getBirdsLoading),
+    questionsForRound = useSelector(birdGameSelectors.getGameQuestionsForRound)
+
+  React.useEffect(() => {
+    dispatch(API_Birds.birdsListFetch({ regionCode, limit: 2 * questionsForRound }))
+  }, [regionCode, questionsForRound])
+
   return (
     <main className={[commonStyles.wrapper, pageStyles.pageContent].join(' ')}>
-      {/*<section>Question</section>*/}
-      <AnswersSection />
-      <InformationSection />
-      <ButtonNextLevel />
+      {isLoading ? (
+        <Spin size="large" className={pageStyles.spinner} />
+      ) : (
+        <>
+          <QuestionSection />
+          <AnswersSection />
+          <InformationSection />
+          <ButtonNextLevel />
+        </>
+      )}
     </main>
-  )
-}
-
-function ButtonNextLevel() {
-  const [isSubmitting, setSumbitting] = React.useState<null | boolean>(null),
-    onClick = React.useCallback(async () => {
-      try {
-        setSumbitting(true)
-        await new Promise((resolve) => {
-          setTimeout(() => resolve(), 1000)
-        })
-      } catch (error) {
-        //show ant notification
-        console.error(error)
-      } finally {
-        setSumbitting(false)
-      }
-    }, [])
-
-  return (
-    <Button className={buttonStyles.button} children="Next Level" onClick={onClick} loading={Boolean(isSubmitting)} />
   )
 }

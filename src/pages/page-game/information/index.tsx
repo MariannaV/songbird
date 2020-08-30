@@ -1,22 +1,22 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import ReactPlayer from 'react-player'
+import { birdGameSelectors } from '../../../store/birdGame/selectors'
+import { NBirds } from '../../../store/birds/@types'
+import { birdsSelectors } from '../../../store/birds/selectors'
 import informationStyles from './index.scss'
 
 export function InformationSection(): React.ReactElement {
-  const birdId: IBirdId = '2',
-    Information = React.useMemo(() => {
-      if (!birdId) return <p children="Послушайте плеер. Выберите птицу из списка" />
-      const data = birdsMap[birdId]
-      return (
-        <>
-          {/*<picture className={informationStyles.birdPicture} />*/}
-          <h3 children={data.name} className={informationStyles.birdName} />
-
-          <h6 children={data.class} className={informationStyles.birdClass} />
-          {/*<audio className={informationStyles.birdPlayer} />*/}
-          <p children={data.description} className={informationStyles.birdDescription} />
-        </>
-      )
-    }, [birdId]),
+  const birdId = useSelector(birdGameSelectors.getGameOpenedId),
+    Information = React.useMemo(
+      () =>
+        !birdId ? (
+          <p children="Listen to the audio player and choose a bird from answers list" />
+        ) : (
+          <BirdInformation birdId={birdId} />
+        ),
+      [birdId]
+    ),
     sectionClassNames = React.useMemo(
       () =>
         [informationStyles.informationSection, !birdId && informationStyles.isEmptySection].filter(Boolean).join(' '),
@@ -26,22 +26,43 @@ export function InformationSection(): React.ReactElement {
   return <section children={Information} className={sectionClassNames} />
 }
 
-type IBirdId = string
+function BirdInformation(properties: { birdId: NBirds.IBird['birdId'] }) {
+  const { birdId } = properties,
+    birdData = useSelector(birdsSelectors.getBird({ birdId }))
 
-interface IBird {
-  birdId: IBirdId
-  name: string
-  class: string //birdClassId for IBirdClasses { birdClassId: string, name: string }
-  description: string
-}
+  const renderedPicture = React.useMemo(() => {
+      if (!birdData.thumbnail?.source && !birdData.originalimage?.source) return null
+      const previewSource = birdData.thumbnail?.source || birdData.originalimage?.source,
+        originalSource = birdData.originalimage?.source
+      return (
+        <picture className={informationStyles.birdPicture} data-original-image={originalSource}>
+          <img src={previewSource} alt={birdData.title} />
+        </picture>
+      )
+    }, [birdData.thumbnail, birdData.originalimage]),
+    renderedAudio = React.useMemo(
+      () => (
+        <ReactPlayer
+          url={birdData.audio.file}
+          controls
+          className={informationStyles.birdPlayer}
+          config={{
+            file: {
+              forceAudio: true,
+            },
+          }}
+        />
+      ),
+      [birdData.audio]
+    )
 
-const birdsMap: Record<IBirdId, IBird> = {
-  '2': {
-    birdId: '2',
-    name: 'Ворон',
-    class: 'Corvus corax',
-    description:
-      'Ворон – крупная птица. Длина тела достигает 70 сантиметров, размах крыльев – до полутора метров. Вороны населяют окрестности Тауэра. В Англии бытует поверье, что в день, когда черные вороны улетят от Тауэра, монархия рухнет.',
-    // preview: './',
-  },
+  return (
+    <>
+      {renderedPicture}
+      <h3 children={birdData.title} className={informationStyles.birdName} />
+      <h6 children={birdData.nameByScience || 'No science name'} className={informationStyles.birdClass} />
+      {renderedAudio}
+      <p children={birdData.extract || 'No description'} className={informationStyles.birdDescription} />
+    </>
+  )
 }

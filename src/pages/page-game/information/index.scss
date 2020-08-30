@@ -3,7 +3,7 @@
 .informationSection {
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: var(--horizontalSpacing);
   background-color: #303030f0;
   color: $colorWhite;
   border: 1px solid #555;
@@ -29,4 +29,7 @@
 }
 
 .birdPlayer {
+  height: 60px !important;
+  width: 100% !important;
+  margin: 20px 0;
 }

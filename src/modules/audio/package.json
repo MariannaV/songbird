@@ -1,0 +1,9 @@
+{
+  "name": "audio-module",
+  "description": "Module for work with audio",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "react-player": "2.6.1"
+  }
+}

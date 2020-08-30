@@ -1,73 +1,64 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { Button } from 'antd'
 import answerStyles from './index.scss'
+import { birdGameSelectors } from '../../../store/birdGame/selectors'
+import { API_BirdGame } from '../../../store/birdGame/actions'
+import { birdsSelectors } from '../../../store/birds/selectors'
 
 export function AnswersSection(): React.ReactElement {
-  const rightAnswerId = '3',
-    answers: Array<IAnswer> = [
-      {
-        birdId: '0',
-        name: 'Ворон',
-        isAnswered: true,
-      },
-      {
-        birdId: '1',
-        name: 'Журавль',
-        isAnswered: false,
-      },
-      {
-        birdId: '2',
-        name: 'Ласточка',
-        isAnswered: false,
-      },
-      {
-        birdId: '3',
-        name: 'Козодой',
-        isAnswered: true,
-      },
-      {
-        birdId: '4',
-        name: 'Кукушка',
-        isAnswered: false,
-      },
-      {
-        birdId: '5',
-        name: 'Синица',
-        isAnswered: true,
-      },
-    ],
-    onAnswerClick = React.useCallback((event: React.MouseEvent<HTMLButtonElement>) => {
-      event.stopPropagation()
-      const { id: birdId } = event.currentTarget.dataset
-      console.log(`Change open bird to ${birdId}`)
-    }, []),
-    Answers = React.useMemo(
+  const answerIds = useSelector(birdGameSelectors.getGameVariantsOfAnswer),
+    rightAnswerIndex = useSelector(birdGameSelectors.getGameRightAnswerIndex),
+    isAnswered = useSelector(birdGameSelectors.getGameQuestionSsAnswered)
+
+  const Answers = React.useMemo(
       () =>
-        answers.map((answer) => {
-          const isRightAnswer = answer.birdId === rightAnswerId
-          return (
-            <Button
-              children={answer.name}
-              data-id={answer.birdId}
-              onClick={onAnswerClick}
-              data-is-answered={answer.isAnswered}
-              data-is-right-answer={isRightAnswer}
-              className={answerStyles.answer}
-              key={`answer-${answer.birdId}`}
-            />
-          )
-        }),
-      [answers, rightAnswerId, onAnswerClick]
+        answerIds.map((answerId, answerIndex) => (
+          <Answer answerId={answerId} isRightAnswer={answerIndex === rightAnswerIndex} key={`answer-${answerId}`} />
+        )),
+      [answerIds, rightAnswerIndex]
+    ),
+    classes = React.useMemo(
+      () => [answerStyles.answersSection, isAnswered && answerStyles.sectionIsAnswered].filter(Boolean).join(' '),
+      [isAnswered]
     )
 
-  return <section children={Answers} className={answerStyles.answersSection} />
+  return <section children={Answers} className={classes} />
 }
 
-interface IBird {
-  birdId: string //TODO: replace to global birdId
-  name: string
+interface IAnswer {
+  answerId: string
+  isRightAnswer: boolean
 }
 
-interface IAnswer extends IBird {
-  isAnswered: boolean
+function Answer(properties: IAnswer) {
+  const { answerId, isRightAnswer } = properties,
+    questionIsAnswered = useSelector(birdGameSelectors.getGameQuestionSsAnswered),
+    [isAnswered, setAsAnswered] = React.useState<boolean>(false),
+    answerData = useSelector(birdsSelectors.getBird({ birdId: answerId })),
+    classes = React.useMemo(
+      () =>
+        [answerStyles.answer, isAnswered && answerStyles.isAnswered, isRightAnswer && answerStyles.isRightAnswer]
+          .filter(Boolean)
+          .join(' '),
+      [isAnswered, isRightAnswer]
+    )
+
+  const dispatch = useDispatch(),
+    onClick = React.useCallback(() => {
+      dispatch(API_BirdGame.birdInformationOpen({ openedId: answerId }))
+      if (!questionIsAnswered) {
+        dispatch(API_BirdGame.questionAnswer({ isRightAnswer }))
+        setAsAnswered(true)
+      }
+    }, [answerId, isRightAnswer, questionIsAnswered, dispatch])
+
+  return (
+    <Button
+      children={answerData.title}
+      disabled={isAnswered && !questionIsAnswered}
+      onClick={onClick}
+      className={classes}
+    />
+  )
 }

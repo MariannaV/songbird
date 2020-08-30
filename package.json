@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "./src/**",
-    "./configs/**/"
+    "./configs/**/",
+    "./api/**/"
   ],
   "browserslist": [
     ">=1%",

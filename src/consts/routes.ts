@@ -21,8 +21,7 @@ routesMap.set(
   new Route<IRouteParams>({
     id: ROUTES.PageGame,
     name: 'Homepage',
-    pathname: '/',
-    exact: true,
+    pathname: '/:regionCode?',
     Component: getModuleAsync({
       moduleName: 'PageGame',
       moduleImport: () => import(/* webpackChunkName: "PageGame", webpackPrefetch: true */ '../pages/page-game'),

@@ -1,59 +1,47 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink, generatePath } from 'react-router-dom'
 import { routesMap, ROUTES } from '../../consts/routes'
 import styles from './index.scss'
 
 interface IHeaderMenuItem {
   title: React.ReactNode
   url: string
-  disabled?: boolean
 }
 
 export function HeaderNavigation() {
   const Menu = React.useMemo(
     () =>
-      menu.map(({ url, title, ...restMenuItem }) => (
-        <Link
-          to={url}
-          children={title}
-          {...restMenuItem}
-          className={styles.headerNavigationLink}
-          key={`menuItem-${title}`}
-        />
+      headerMenu.map(({ url, title, ...restMenuItem }) => (
+        <NavLink to={url} children={title} exact className={styles.headerNavigationLink} key={`menuItem-${title}`} />
       )),
     []
   )
   return <nav children={Menu} className={styles.headerNavigation} />
 }
 
-const menu: Array<IHeaderMenuItem> = [
+export const headerMenu: Array<IHeaderMenuItem> = [
   {
-    title: 'Разминка',
-    url: routesMap.get(ROUTES.PageGame)!.props.pathname,
+    title: 'Train',
+    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname),
   },
   {
-    title: 'Воробьиные',
-    url: '/1',
-    disabled: true,
+    title: 'Australian',
+    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, { regionCode: 'AU' }),
   },
   {
-    title: 'Лесные птицы',
-    url: '/2',
-    disabled: true,
+    title: 'British',
+    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, { regionCode: 'GB' }),
   },
   {
-    title: 'Певчие птицы',
-    url: '/3',
-    disabled: true,
+    title: 'Brazilian',
+    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, { regionCode: 'BR' }),
   },
   {
-    title: 'Хищные птицы',
-    url: '/4',
-    disabled: true,
+    title: 'African',
+    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, { regionCode: 'ZA' }),
   },
   {
-    title: 'Морские птицы',
-    url: '/5',
-    disabled: true,
+    title: 'Japanese',
+    url: generatePath(routesMap.get(ROUTES.PageGame)!.props.pathname, { regionCode: 'JP' }),
   },
 ]

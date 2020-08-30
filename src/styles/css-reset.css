@@ -386,7 +386,8 @@ button {
 
 a:focus,
 button:focus,
-summary:focus {
+summary:focus,
+audio:focus {
   outline: none;
 }
 
@@ -398,6 +399,12 @@ h5,
 h6,
 a {
   word-break: break-word;
+}
+
+img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
 }
 
 summary::-webkit-details-marker {
@@ -418,7 +425,7 @@ fieldset {
 
 *:disabled {
   pointer-events: none;
-  filter: opacity(0.5);
+  filter: opacity(0.7);
 }
 
 body {
@@ -427,7 +434,7 @@ body {
   text-decoration-skip: objects;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
-  font-size: 12px;
+  font-size: 1rem;
   font-weight: 400;
 }
 

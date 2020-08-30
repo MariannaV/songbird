@@ -1,0 +1,41 @@
+@import '../../../styles/variables.scss';
+
+.questionSection {
+  display: grid;
+  grid-gap: 16px;
+  padding: var(--horizontalSpacing);
+  background-color: #303030f0;
+  color: $colorWhite;
+  border: 1px solid #555;
+  border-radius: 5px;
+
+  @media (--min-tablet) {
+    grid-column: 1 /-1;
+    grid-template-columns: max-content 1fr;
+  }
+
+  &.questionIsAnswered {
+  }
+}
+
+.birdPicture {
+  grid-column: 1;
+  display: flex;
+  height: 150px;
+  width: 200px;
+  border-radius: 10px;
+}
+
+.birdDescription {
+  grid-column: 2 / -1;
+}
+
+.birdName[class~='ant-typography'] {
+  color: inherit;
+}
+
+.birdAudioPlayer {
+  height: 60px !important;
+  width: 100% !important;
+  max-width: 400px;
+}

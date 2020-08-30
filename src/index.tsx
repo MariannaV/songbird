@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { routes } from './consts/routes'
 import { configureStore } from './store'
-import { Header } from './components/header' //TODO: fix as absolute url
+import { Header } from './components/header'
 import CONSTANTS from './consts'
 
 if (CONSTANTS.isProd && 'serviceWorker' in navigator) {

@@ -18,6 +18,12 @@ export function Header(): React.ReactElement {
 }
 
 const UserStatistics = () => {
-  const score = useSelector(birdGameSelectors.getGameScore)
-  return <div children={`Score: ${score}`} className={styles.userStatistics} />
+  const round = useSelector(birdGameSelectors.getGameQuestionNumber),
+    score = useSelector(birdGameSelectors.getGameScore)
+  return (
+    <div className={styles.userStatistics}>
+      <p children={`Round: ${round + 1}`} />
+      <p children={`Score: ${score}`} />
+    </div>
+  )
 }
