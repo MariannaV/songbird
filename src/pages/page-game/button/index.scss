@@ -8,9 +8,12 @@
   border-radius: 5px;
   color: $colorWhite;
   grid-column: 1 / -1;
-  align-self: center;
   height: initial;
   transition: filter 0.3s;
+
+  @media (--min-tablet) {
+    align-self: center;
+  }
 
   &:hover {
     filter: brightness(1.2);
