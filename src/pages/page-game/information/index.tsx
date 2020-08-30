@@ -23,17 +23,26 @@ export function InformationSection(): React.ReactElement {
 
 function BirdInformation(properties: { birdId: NBirds.IBird['birdId'] }) {
   const { birdId } = properties,
-    birdData = useSelector(birdsSelectors.getBird({ birdId }))
+    { extract, nameByScience, ...birdData } = useSelector(birdsSelectors.getBird({ birdId }))
+
+  const renderedPicture = React.useMemo(() => {
+    if (!birdData.thumbnail?.source && !birdData.originalimage?.source) return null
+    const previewSource = birdData.thumbnail?.source || birdData.originalimage?.source,
+      originalSource = birdData.originalimage?.source
+    return (
+      <picture className={informationStyles.birdPicture} data-original-image={originalSource}>
+        <img src={previewSource} alt={birdData.title} />
+      </picture>
+    )
+  }, [birdData.thumbnail, birdData.originalimage])
 
   return (
     <>
-      <picture className={informationStyles.birdPicture} data-original-image={birdData.originalimage.source}>
-        <img src={birdData.thumbnail.source} alt={birdData.title} />
-      </picture>
+      {renderedPicture}
       <h3 children={birdData.title} className={informationStyles.birdName} />
-      <h6 children={birdData.nameByScience} className={informationStyles.birdClass} />
+      <h6 children={nameByScience || 'No science name'} className={informationStyles.birdClass} />
       {/*<audio className={informationStyles.birdPlayer} />*/}
-      <p children={birdData.extract} className={informationStyles.birdDescription} />
+      <p children={extract || 'No description'} className={informationStyles.birdDescription} />
     </>
   )
 }

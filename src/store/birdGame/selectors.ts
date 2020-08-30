@@ -20,11 +20,15 @@ export const birdGameSelectors = {
   get getGameOpenedId() {
     return createSelector(this.getBirdGame, (birdGame) => birdGame.openedId)
   },
+  get getGameQuestionSsAnswered() {
+    return createSelector(this.getBirdGame, (birdGame) => birdGame.isAnswered)
+  },
   get getGameVariantsOfAnswer() {
     return createSelector(
       (store: IStore) => store,
       ({ birdGame, birds }) => {
         const firstAnswerIndex = birdGame.questionNumber * birdGame.questionsForRound
+        //TODO: add randomize sorting
         return birds.list.slice(firstAnswerIndex, firstAnswerIndex + birdGame.questionsForRound)
       }
     )

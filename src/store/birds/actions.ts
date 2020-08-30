@@ -4,6 +4,7 @@ import { requestCreator } from '../../helpers/request-creator'
 import CONSTANTS from '../../consts'
 
 export const API_Birds = {
+  //TODO: need to check 'offset' for this request
   birdsListFetch: (parameters: { regionCode: string; limit?: number }) => async (
     dispatch: Dispatch<NBirds.IBirdsFetch>
   ) => {

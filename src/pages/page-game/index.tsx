@@ -5,6 +5,8 @@ import { LoadableComponent } from '@loadable/component'
 import { getModuleAsync } from '../../modules/optimizations'
 import { API_Birds } from '../../store/birds/actions'
 import { birdsSelectors } from '../../store/birds/selectors'
+import { birdGameSelectors } from '../../store/birdGame/selectors'
+import { API_BirdGame } from '../../store/birdGame/actions'
 
 const AnswersSection: LoadableComponent<unknown> = getModuleAsync({
     moduleName: 'AnswersSection',
@@ -21,7 +23,7 @@ export function PageGame(): React.ReactElement {
     isLoading = useSelector(birdsSelectors.getBirdsLoading)
 
   React.useEffect(() => {
-    dispatch(API_Birds.birdsListFetch({ regionCode: 'RU', limit: 20 /* 5 */ }))
+    dispatch(API_Birds.birdsListFetch({ regionCode: 'RU', limit: 12 /* 6 */ }))
   }, [])
 
   return (
@@ -42,19 +44,20 @@ export function PageGame(): React.ReactElement {
 
 function ButtonNextLevel() {
   const [isSubmitting, setSumbitting] = React.useState<null | boolean>(null),
-    onClick = React.useCallback(async () => {
+    isAnswered = useSelector(birdGameSelectors.getGameQuestionSsAnswered)
+
+  const dispatch = useDispatch(),
+    onClick = React.useCallback(() => {
       try {
         setSumbitting(true)
-        await new Promise((resolve) => {
-          setTimeout(() => resolve(), 1000)
-        })
+        dispatch(API_BirdGame.questionAsk())
       } catch (error) {
         //show ant notification
         console.error(error)
       } finally {
         setSumbitting(false)
       }
-    }, [])
+    }, [dispatch])
 
-  return <Button children="Next Level" onClick={onClick} loading={Boolean(isSubmitting)} />
+  return <Button children="Next Level" disabled={!isAnswered} onClick={onClick} loading={Boolean(isSubmitting)} />
 }
