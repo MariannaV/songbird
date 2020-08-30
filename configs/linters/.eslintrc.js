@@ -60,6 +60,7 @@ module.exports = {
     '@typescript-eslint/react-a11y-anchors': 0,
     '@typescript-eslint/no-namespace': 0,
     '@typescript-eslint/use-simple-attributes': 0,
+    '@typescript-eslint/non-literal-require': 0,
 
     'one-var': 0,
     'spaced-comment': 0,
@@ -100,6 +101,7 @@ module.exports = {
     'unicorn/no-reduce': 0,
     'unicorn/prefer-spread': 0,
     'unicorn/no-for-loop': 0,
+    'unicorn/consistent-function-scoping': 0,
   },
   settings: {
     'import/resolver': {

@@ -8,7 +8,8 @@ export const API_BirdGame = {
   questionAnswer: (parameters: NBirdGame.IQuestionAnswer['payload']) => (
     dispatch: Dispatch<NBirdGame.IQuestionAnswer>
   ) => dispatch({ type: NBirdGame.ActionTypes.QUESTION_ANSWER, payload: parameters }),
-  // eslint-disable-next-line unicorn/consistent-function-scoping
   questionAsk: () => (dispatch: Dispatch<NBirdGame.IQuestionAsk>) =>
     dispatch({ type: NBirdGame.ActionTypes.QUESTION_ASK }),
+  gameRestart: () => (dispatch: Dispatch<NBirdGame.IGameRestart>) =>
+    dispatch({ type: NBirdGame.ActionTypes.GAME_RESTART }),
 }

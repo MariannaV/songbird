@@ -1,8 +1,15 @@
 @import './../../../styles/variables.scss';
 
 .informationSection {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-areas:
+    'bird-picture bird-name'
+    'bird-picture bird-class'
+    'bird-picture bird-player'
+    'bird-description bird-description';
+  grid-template-columns: max-content 1fr;
+  column-gap: 16px;
+  row-gap: 8px;
   padding: var(--horizontalSpacing);
   background-color: #303030f0;
   color: $colorWhite;
@@ -14,22 +21,35 @@
 }
 
 .birdName {
+  grid-area: bird-name;
   font-size: 2rem;
   color: inherit;
 }
 
 .birdClass {
+  grid-area: bird-class;
   color: inherit;
 }
 
 .birdDescription {
+  grid-area: bird-description;
 }
 
 .birdPicture {
+  grid-area: bird-picture;
+  display: flex;
+  height: 155px;
+  width: 200px;
+  & > img {
+    border-radius: 10px;
+    width: 100%;
+    object-position: top;
+  }
 }
 
 .birdPlayer {
+  grid-area: bird-player;
   height: 60px !important;
   width: 100% !important;
-  margin: 20px 0;
+  //margin: 20px 0;
 }

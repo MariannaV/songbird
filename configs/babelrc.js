@@ -35,6 +35,8 @@ module.exports = {
   ],
   plugins: [
     isDev && require.resolve('react-refresh/babel'),
+    ['@babel/plugin-proposal-decorators', { legacy: true }],
+    ['@babel/plugin-proposal-class-properties', { loose: true }],
     [
       'react-css-modules',
       {
