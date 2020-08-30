@@ -9,7 +9,7 @@ import { headerMenu } from '../../../components/header/header-navigation'
 export function ResultScreen(): React.ReactElement {
   const score = useSelector(birdGameSelectors.getGameScore),
     questionsForRound = useSelector(birdGameSelectors.getGameQuestionsForRound),
-    questionsAmount = headerMenu.length, //TODO: due to train -1
+    questionsAmount = headerMenu.length - 1, //-1 due to train question
     allScopes = questionsForRound * questionsAmount,
     isMaximumScopes = score === allScopes
 

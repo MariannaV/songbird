@@ -29,7 +29,9 @@ export const birdGameReducer = produce((draft: NBirdGame.IStore, action: NBirdGa
         draft.attemptsMade += 1
         break
       }
-      if (draft.questionsForRound > draft.attemptsMade) draft.score += draft.questionsForRound - draft.attemptsMade
+      const isTrainQuestion = !draft.questionNumber
+      if (!isTrainQuestion && draft.questionsForRound > draft.attemptsMade)
+        draft.score += draft.questionsForRound - draft.attemptsMade
       draft.isAnswered = true
       break
     }
