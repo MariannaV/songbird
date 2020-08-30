@@ -1,0 +1,78 @@
+{
+	"info": {
+		"_postman_id": "a81526c8-86d3-4573-8b58-166f091641e8",
+		"name": "xeno-canto.org",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Recordings",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{API_URL}}/recordings?query=Corvus cornix+q:A",
+					"host": [
+						"{{API_URL}}"
+					],
+					"path": [
+						"recordings"
+					],
+					"query": [
+						{
+							"key": "query",
+							"value": "Corvus cornix+q:A"
+						},
+						{
+							"key": "page",
+							"value": "1",
+							"description": "[Optional]  From 1 to results.numPages",
+							"disabled": true
+						},
+						{
+							"key": "loc",
+							"value": "tari",
+							"disabled": true
+						},
+						{
+							"key": "type:song",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "47257e6e-a28b-4b64-a75d-e6241c4b08ae",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ffd228d5-3007-4af3-a938-c322b7109b9e",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "19861746-4cfd-49a7-a872-f60a7a08b846",
+			"key": "API_URL",
+			"value": "https://www.xeno-canto.org/api/2"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
