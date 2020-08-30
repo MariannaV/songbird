@@ -53,7 +53,7 @@ export const API_Birds = {
           ]
 
         const dataNeededFields = ['title', 'extract', 'originalimage', 'thumbnail'],
-          audioNeededFields = ['url', 'file', 'sono']
+          audioNeededFields = ['url', 'file']
 
         birdsMap[birdId] = {
           birdId,

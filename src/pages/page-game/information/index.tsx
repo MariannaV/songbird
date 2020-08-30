@@ -1,5 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import ReactPlayer from 'react-player'
 import { birdGameSelectors } from '../../../store/birdGame/selectors'
 import { NBirds } from '../../../store/birds/@types'
 import { birdsSelectors } from '../../../store/birds/selectors'
@@ -30,22 +31,37 @@ function BirdInformation(properties: { birdId: NBirds.IBird['birdId'] }) {
     birdData = useSelector(birdsSelectors.getBird({ birdId }))
 
   const renderedPicture = React.useMemo(() => {
-    if (!birdData.thumbnail?.source && !birdData.originalimage?.source) return null
-    const previewSource = birdData.thumbnail?.source || birdData.originalimage?.source,
-      originalSource = birdData.originalimage?.source
-    return (
-      <picture className={informationStyles.birdPicture} data-original-image={originalSource}>
-        <img src={previewSource} alt={birdData.title} />
-      </picture>
+      if (!birdData.thumbnail?.source && !birdData.originalimage?.source) return null
+      const previewSource = birdData.thumbnail?.source || birdData.originalimage?.source,
+        originalSource = birdData.originalimage?.source
+      return (
+        <picture className={informationStyles.birdPicture} data-original-image={originalSource}>
+          <img src={previewSource} alt={birdData.title} />
+        </picture>
+      )
+    }, [birdData.thumbnail, birdData.originalimage]),
+    renderedAudio = React.useMemo(
+      () => (
+        <ReactPlayer
+          url={birdData.audio.file}
+          controls
+          className={informationStyles.birdPlayer}
+          config={{
+            file: {
+              forceAudio: true,
+            },
+          }}
+        />
+      ),
+      [birdData.audio]
     )
-  }, [birdData.thumbnail, birdData.originalimage])
 
   return (
     <>
       {renderedPicture}
       <h3 children={birdData.title} className={informationStyles.birdName} />
       <h6 children={birdData.nameByScience || 'No science name'} className={informationStyles.birdClass} />
-      {/*<audio className={informationStyles.birdPlayer} />*/}
+      {renderedAudio}
       <p children={birdData.extract || 'No description'} className={informationStyles.birdDescription} />
     </>
   )

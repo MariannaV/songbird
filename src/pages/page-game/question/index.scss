@@ -26,7 +26,15 @@
   border-radius: 10px;
 }
 
+.birdDescription {
+  grid-column: 2 / -1;
+}
+
 .birdName[class~='ant-typography'] {
   color: inherit;
-  grid-column: 2 / -1;
+}
+
+.birdAudioPlayer {
+  height: 60px !important;
+  max-width: 400px !important;
 }

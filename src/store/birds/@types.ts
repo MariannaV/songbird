@@ -37,6 +37,5 @@ export namespace NBirds {
   export interface IBirdAudio {
     url: string
     file: string
-    sono: { small: string; med: string; large: string; full: string }
   }
 }

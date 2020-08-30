@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Typography } from 'antd'
+import ReactPlayer from 'react-player'
 import questionStyles from './index.scss'
 import { birdGameSelectors } from '../../../store/birdGame/selectors'
 import { birdsSelectors } from '../../../store/birds/selectors'
@@ -40,13 +41,30 @@ export function QuestionSection(): React.ReactElement {
         />
       ),
       [questionIsAnswered, birdData.title]
+    ),
+    renderedAudio = React.useMemo(
+      () => (
+        <ReactPlayer
+          url={birdData.audio.file}
+          controls
+          className={questionStyles.birdAudioPlayer}
+          config={{
+            file: {
+              forceAudio: true,
+            },
+          }}
+        />
+      ),
+      [birdData.audio]
     )
 
   return (
     <section className={classes}>
       {renderedPicture}
-      {renderedTitle}
-      {/*{renderedAudio}*/}
+      <div className={questionStyles.birdDescription}>
+        {renderedTitle}
+        {renderedAudio}
+      </div>
     </section>
   )
 }
