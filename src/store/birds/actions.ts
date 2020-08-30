@@ -3,7 +3,6 @@ import { NBirds } from './@types'
 import { requestCreator } from '../../helpers/request-creator'
 
 export const API_Birds = {
-  //TODO: need to check 'offset' for this request
   birdsListFetch: (parameters: { regionCode: string; limit?: number }) => async (
     dispatch: Dispatch<NBirds.IBirdsFetch>
   ) => {
@@ -21,7 +20,7 @@ export const API_Birds = {
           url: `${apiSettings.version}/data/obs/${parameters.regionCode}/recent`,
           method: requestCreator.methods.get,
           data: {
-            maxResults: parameters.limit,
+            maxResults: Number(parameters.limit) * 2, //due to next filtration need to fetch more data
             sppLocale: 'en',
           },
           headers: {
@@ -43,6 +42,7 @@ export const API_Birds = {
           .flat()
       )
 
+      let amountBirdWithAllData = 0
       for (let birdIndex = 0; birdIndex < birdSpecies.length; birdIndex += 1) {
         const { comName, sciName: nameByScience } = birdSpecies[birdIndex],
           birdId = comName.replace(/\s/g, '_'),
@@ -54,7 +54,7 @@ export const API_Birds = {
         const dataNeededFields = ['title', 'extract', 'originalimage', 'thumbnail'],
           audioNeededFields = ['url', 'file']
 
-        birdsMap[birdId] = {
+        const bird = {
           birdId,
           nameByScience,
           ...dataNeededFields.reduce((accumulator, currentKey) => {
@@ -67,6 +67,15 @@ export const API_Birds = {
             accumulator[currentKey] = birdAudio?.[currentKey]
             return accumulator
           }, {} as NBirds.IBirdAudio),
+        }
+
+        //we fetch more data than it needed so skip extra bird information
+        if (amountBirdWithAllData === parameters.limit) break
+
+        //skip broken birds
+        if (bird.originalimage && bird.audio.file) {
+          birdsMap[birdId] = bird
+          amountBirdWithAllData += 1
         }
       }
 

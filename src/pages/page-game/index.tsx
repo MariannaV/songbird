@@ -37,7 +37,7 @@ export function PageGame(): React.ReactElement {
     questionsForRound = useSelector(birdGameSelectors.getGameQuestionsForRound)
 
   React.useEffect(() => {
-    dispatch(API_Birds.birdsListFetch({ regionCode, limit: 2 * questionsForRound }))
+    dispatch(API_Birds.birdsListFetch({ regionCode, limit: questionsForRound }))
   }, [regionCode, questionsForRound])
 
   return (
