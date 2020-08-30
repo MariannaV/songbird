@@ -31,7 +31,6 @@ module.exports = {
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:import/errors',
     'plugin:import/warnings',
-    'plugin:compat/recommended',
     'plugin:sonarjs/recommended',
     'plugin:unicorn/recommended',
     'esnext',
@@ -72,6 +71,8 @@ module.exports = {
     'prefer-template': 0,
     'prefer-rest-params': 0,
     'global-require': 0,
+    'no-void': 0,
+    camelcase: 0,
 
     'react/prop-types': 0,
     'react/jsx-no-literals': 0,
@@ -95,7 +96,9 @@ module.exports = {
     'import/prefer-default-export': 0,
     'import/no-extraneous-dependencies': 0, //because of Yarn Workspaces
     'unicorn/no-null': 0,
+    'unicorn/no-reduce': 0,
     'unicorn/prefer-spread': 1,
+    'unicorn/no-for-loop': 0,
   },
   settings: {
     'import/resolver': {
