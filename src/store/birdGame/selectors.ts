@@ -33,4 +33,11 @@ export const birdGameSelectors = {
       }
     )
   },
+  get getGameRightAnswerId() {
+    return createSelector(
+      this.getBirdGame,
+      this.getGameVariantsOfAnswer,
+      (birdGame, variantsOfAnswer) => variantsOfAnswer[birdGame.answerIndex]
+    )
+  },
 }
