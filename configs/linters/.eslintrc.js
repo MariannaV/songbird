@@ -98,7 +98,7 @@ module.exports = {
     'import/no-extraneous-dependencies': 0, //because of Yarn Workspaces
     'unicorn/no-null': 0,
     'unicorn/no-reduce': 0,
-    'unicorn/prefer-spread': 1,
+    'unicorn/prefer-spread': 0,
     'unicorn/no-for-loop': 0,
   },
   settings: {

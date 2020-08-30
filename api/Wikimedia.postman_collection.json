@@ -1,65 +1,55 @@
 {
-	"info": {
-		"_postman_id": "54ea61f2-f82f-452d-baa8-2714cc27d405",
-		"name": "Wikimedia REST API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "Page summary",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{API_URL}}/page/summary/Hooded_crow",
-					"host": [
-						"{{API_URL}}"
-					],
-					"path": [
-						"page",
-						"summary",
-						"Hooded_crow"
-					],
-					"query": [
-						{
-							"key": "pageTitle",
-							"value": "Hooded_crow",
-							"disabled": true
-						}
-					]
-				}
-			},
-			"response": []
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"id": "74732976-c595-43fe-967e-e14cef13df6b",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"id": "cd88e201-e014-4718-ac41-0348fe9fb8e5",
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
-	"variable": [
-		{
-			"id": "cc8f4641-d977-4c3e-912f-7a697ab06526",
-			"key": "API_URL",
-			"value": "https://en.wikipedia.org/api/rest_v1"
-		}
-	],
-	"protocolProfileBehavior": {}
+  "info": {
+    "_postman_id": "54ea61f2-f82f-452d-baa8-2714cc27d405",
+    "name": "Wikimedia REST API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Page summary",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{API_URL}}/page/summary/Hooded_crow",
+          "host": ["{{API_URL}}"],
+          "path": ["page", "summary", "Hooded_crow"],
+          "query": [
+            {
+              "key": "pageTitle",
+              "value": "Hooded_crow",
+              "disabled": true
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "74732976-c595-43fe-967e-e14cef13df6b",
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "cd88e201-e014-4718-ac41-0348fe9fb8e5",
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "id": "cc8f4641-d977-4c3e-912f-7a697ab06526",
+      "key": "API_URL",
+      "value": "https://en.wikipedia.org/api/rest_v1"
+    }
+  ],
+  "protocolProfileBehavior": {}
 }
