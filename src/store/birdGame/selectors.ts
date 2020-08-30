@@ -11,4 +11,22 @@ export const birdGameSelectors = {
   get getGameScore() {
     return createSelector(this.getBirdGame, (birdGame) => birdGame.score)
   },
+  get getGameQuestionNumber() {
+    return createSelector(this.getBirdGame, (birdGame) => birdGame.questionNumber)
+  },
+  get getGameRightAnswerIndex() {
+    return createSelector(this.getBirdGame, (birdGame) => birdGame.answerIndex)
+  },
+  get getGameOpenedId() {
+    return createSelector(this.getBirdGame, (birdGame) => birdGame.openedId)
+  },
+  get getGameVariantsOfAnswer() {
+    return createSelector(
+      (store: IStore) => store,
+      ({ birdGame, birds }) => {
+        const firstAnswerIndex = birdGame.questionNumber * birdGame.questionsForRound
+        return birds.list.slice(firstAnswerIndex, firstAnswerIndex + birdGame.questionsForRound)
+      }
+    )
+  },
 }

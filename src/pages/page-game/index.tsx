@@ -1,12 +1,11 @@
 import React from 'react'
-import { Button } from 'antd'
+import { Button, Spin } from 'antd'
+import { useDispatch, useSelector } from 'react-redux'
 import { LoadableComponent } from '@loadable/component'
 import { getModuleAsync } from '../../modules/optimizations'
-import commonStyles from '../../styles/index.scss'
-import pageStyles from './index.scss'
-import buttonStyles from './button/index.scss'
+import { API_Birds } from '../../store/birds/actions'
+import { birdsSelectors } from '../../store/birds/selectors'
 
-//TODO: replace to routesMap
 const AnswersSection: LoadableComponent<unknown> = getModuleAsync({
     moduleName: 'AnswersSection',
     moduleImport: () => import(/* webpackChunkName: "AnswersSection", webpackPrefetch: true */ './answers'),
@@ -18,12 +17,25 @@ const AnswersSection: LoadableComponent<unknown> = getModuleAsync({
 
 //TODO: add error boundaries
 export function PageGame(): React.ReactElement {
+  const dispatch = useDispatch(),
+    isLoading = useSelector(birdsSelectors.getBirdsLoading)
+
+  React.useEffect(() => {
+    dispatch(API_Birds.birdsListFetch({ regionCode: 'RU', limit: 20 /* 5 */ }))
+  }, [])
+
   return (
-    <main className={[commonStyles.wrapper, pageStyles.pageContent].join(' ')}>
-      {/*<section>Question</section>*/}
-      <AnswersSection />
-      <InformationSection />
-      <ButtonNextLevel />
+    <main>
+      {isLoading ? (
+        <Spin />
+      ) : (
+        <>
+          <section>Question</section>
+          <AnswersSection />
+          <InformationSection />
+          <ButtonNextLevel />
+        </>
+      )}
     </main>
   )
 }
@@ -44,7 +56,5 @@ function ButtonNextLevel() {
       }
     }, [])
 
-  return (
-    <Button className={buttonStyles.button} children="Next Level" onClick={onClick} loading={Boolean(isSubmitting)} />
-  )
+  return <Button children="Next Level" onClick={onClick} loading={Boolean(isSubmitting)} />
 }

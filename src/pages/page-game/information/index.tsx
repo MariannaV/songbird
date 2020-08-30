@@ -1,22 +1,17 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import { birdGameSelectors } from '../../../store/birdGame/selectors'
+import { NBirds } from '../../../store/birds/@types'
+import { birdsSelectors } from '../../../store/birds/selectors'
 import informationStyles from './index.scss'
 
 export function InformationSection(): React.ReactElement {
-  const birdId: IBirdId = '2',
-    Information = React.useMemo(() => {
-      if (!birdId) return <p children="Послушайте плеер. Выберите птицу из списка" />
-      const data = birdsMap[birdId]
-      return (
-        <>
-          {/*<picture className={informationStyles.birdPicture} />*/}
-          <h3 children={data.name} className={informationStyles.birdName} />
-
-          <h6 children={data.class} className={informationStyles.birdClass} />
-          {/*<audio className={informationStyles.birdPlayer} />*/}
-          <p children={data.description} className={informationStyles.birdDescription} />
-        </>
-      )
-    }, [birdId]),
+  const birdId = useSelector(birdGameSelectors.getGameOpenedId),
+    Information = React.useMemo(
+      () =>
+        !birdId ? <p children="Послушайте плеер. Выберите птицу из списка" /> : <BirdInformation birdId={birdId} />,
+      [birdId]
+    ),
     sectionClassNames = React.useMemo(
       () =>
         [informationStyles.informationSection, !birdId && informationStyles.isEmptySection].filter(Boolean).join(' '),
@@ -26,22 +21,19 @@ export function InformationSection(): React.ReactElement {
   return <section children={Information} className={sectionClassNames} />
 }
 
-type IBirdId = string
+function BirdInformation(properties: { birdId: NBirds.IBird['birdId'] }) {
+  const { birdId } = properties,
+    birdData = useSelector(birdsSelectors.getBird({ birdId }))
 
-interface IBird {
-  birdId: IBirdId
-  name: string
-  class: string //birdClassId for IBirdClasses { birdClassId: string, name: string }
-  description: string
-}
-
-const birdsMap: Record<IBirdId, IBird> = {
-  '2': {
-    birdId: '2',
-    name: 'Ворон',
-    class: 'Corvus corax',
-    description:
-      'Ворон – крупная птица. Длина тела достигает 70 сантиметров, размах крыльев – до полутора метров. Вороны населяют окрестности Тауэра. В Англии бытует поверье, что в день, когда черные вороны улетят от Тауэра, монархия рухнет.',
-    // preview: './',
-  },
+  return (
+    <>
+      <picture className={informationStyles.birdPicture} data-original-image={birdData.originalimage.source}>
+        <img src={birdData.thumbnail.source} alt={birdData.title} />
+      </picture>
+      <h3 children={birdData.title} className={informationStyles.birdName} />
+      <h6 children={birdData.nameByScience} className={informationStyles.birdClass} />
+      {/*<audio className={informationStyles.birdPlayer} />*/}
+      <p children={birdData.extract} className={informationStyles.birdDescription} />
+    </>
+  )
 }
