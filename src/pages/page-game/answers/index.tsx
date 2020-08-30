@@ -48,6 +48,8 @@ function Answer(properties: IAnswer) {
     onClick = React.useCallback(() => {
       dispatch(API_BirdGame.birdInformationOpen({ openedId: answerId }))
       if (!questionIsAnswered) {
+        // eslint-disable-next-line @typescript-eslint/tslint/config
+        void new Audio(require(`../../../assets/audio/${isRightAnswer ? 'correct' : 'error'}.mp3`).default).play()
         dispatch(API_BirdGame.questionAnswer({ isRightAnswer }))
         setAsAnswered(true)
       }

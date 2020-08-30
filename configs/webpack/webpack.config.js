@@ -166,6 +166,15 @@ module.exports = (env, argv) => ({
           },
         ],
       },
+      {
+        test: /\.(mp3)$/,
+        include: `${root}/src/assets`,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ],
   },
 

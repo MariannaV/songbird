@@ -6,7 +6,7 @@ export namespace NBirdGame {
     questionNumber: number
     questionsForRound: number
     answerIndex: number
-    isAnswered: boolean
+    isAnswered: boolean | null
     openedId: null | NBirds.IBird['birdId']
     attemptsMade: number
     gameOver: boolean

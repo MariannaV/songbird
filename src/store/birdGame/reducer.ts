@@ -8,7 +8,7 @@ function getInitialState(): NBirdGame.IStore {
     score: 0,
     questionNumber: 0,
     questionsForRound,
-    isAnswered: false,
+    isAnswered: null,
     answerIndex: getRandomInt(questionsForRound),
     attemptsMade: 0,
     openedId: null,
